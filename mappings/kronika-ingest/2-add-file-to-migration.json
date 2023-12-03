@@ -1,0 +1,27 @@
+{
+    "request": {
+        "method": "POST",
+        "urlPathTemplate": "/ingest/migrations/{migrationId}/files",
+        "headers": {
+            "Tus-Resumable": {
+                "equalTo": "1.0.0"
+            },
+            "Upload-Length": {
+                "matches": "^[0-9]+$"
+            },
+            "Upload-Metadata": {
+                "matches": "^filename [a-zA-Z0-9+=\/]*,content-type [a-zA-Z0-9+=\/]*$"
+            }
+        }
+    },
+    "response": {
+        "status": 201,
+        "transformers": [
+            "response-template"
+        ],
+        "headers": {
+            "Location": "http://tus.kronika.gov.pl:55001/{{request.path.[2]}}/{{randomValue length=32 type='ALPHANUMERIC'}}",
+            "Tus-Resumable": "1.0.0"
+        }
+    }
+}

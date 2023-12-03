@@ -1,0 +1,27 @@
+{
+    "request": {
+        "method": "PATCH",
+        "urlPathTemplate": "/ingest/migrations/{migrationId}/files/{locationId}",
+        "headers": {
+            "Tus-Resumable": {
+                "equalTo": "1.0.0"
+            },
+            "Upload-Offset": {
+                "matches": "^[0-9]+$"
+            },
+            "Content-Type": {
+                "equalTo": "application/offset+octet-stream"
+            }
+        }
+    },
+    "response": {
+        "status": 204,
+        "transformers": [
+            "response-template"
+        ],
+        "headers": {
+            "Tus-Resumable": "1.0.0",
+            "Upload-Offset": "{{randomValue length=4 type='NUMERIC'}}"
+        }
+    }
+}

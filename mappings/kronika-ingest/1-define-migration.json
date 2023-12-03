@@ -1,0 +1,14 @@
+{
+    "request": {
+        "method": "POST",
+        "url": "/ingest/migrations"
+    },
+    "response": {
+        "status": 201,
+        "bodyFileName": "migrations/define-migration-response.json",
+        "transformers": ["response-template"],
+        "headers": {
+            "Content-Type": "application/json"
+        }
+    }
+}
