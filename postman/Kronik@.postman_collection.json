@@ -1,0 +1,214 @@
+{
+	"info": {
+		"_postman_id": "03f4588b-d406-4cd7-9c70-705bfd95d2ce",
+		"name": "Kronik@",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "4407045",
+		"_collection_link": "https://speeding-comet-116608.postman.co/workspace/3947acf5-b0e8-405b-b1da-ac852427ec6d/collection/4407045-03f4588b-d406-4cd7-9c70-705bfd95d2ce?action=share&source=collection_link&creator=4407045"
+	},
+	"item": [
+		{
+			"name": "[1] Define migration",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.environment.set(\"kronika.migrationId\", pm.response.json().migration_id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true
+				}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"data_source\": \"12345\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{kronika.host}}/ingest/migrations",
+					"host": [
+						"{{kronika.host}}"
+					],
+					"path": [
+						"ingest",
+						"migrations"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[2] Add file",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.environment.set(\"kronika.locationId\", pm.response.headers.get('Location').split(\"/\")[4]);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Upload-Length",
+						"value": "7",
+						"type": "text"
+					},
+					{
+						"key": "Tus-Resumable",
+						"value": "1.0.0",
+						"type": "text"
+					},
+					{
+						"key": "Upload-Metadata",
+						"value": "filename dGVzdC50eHQ=,content-type dGV4dC9wbGFpbg==",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{kronika.host}}/ingest/migrations/:migrationId/files",
+					"host": [
+						"{{kronika.host}}"
+					],
+					"path": [
+						"ingest",
+						"migrations",
+						":migrationId",
+						"files"
+					],
+					"variable": [
+						{
+							"key": "migrationId",
+							"value": "{{kronika.migrationId}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[3] Upload file content",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Upload-Offset",
+						"value": "0",
+						"type": "text"
+					},
+					{
+						"key": "Tus-Resumable",
+						"value": "1.0.0",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/offset+octet-stream",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "file",
+					"file": {
+						"src": "/Users/dawid/Downloads/tusd_darwin_amd64/LICENSE.txt"
+					}
+				},
+				"url": {
+					"raw": "{{kronika.host}}/ingest/migrations/:migrationId/files/:locationId",
+					"host": [
+						"{{kronika.host}}"
+					],
+					"path": [
+						"ingest",
+						"migrations",
+						":migrationId",
+						"files",
+						":locationId"
+					],
+					"variable": [
+						{
+							"key": "migrationId",
+							"value": "{{kronika.migrationId}}"
+						},
+						{
+							"key": "locationId",
+							"value": "{{kronika.locationId}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[4] Start migration",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{kronika.host}}/ingest/migrations/:migrationId/start",
+					"host": [
+						"{{kronika.host}}"
+					],
+					"path": [
+						"ingest",
+						"migrations",
+						":migrationId",
+						"start"
+					],
+					"variable": [
+						{
+							"key": "migrationId",
+							"value": "{{kronika.migrationId}}"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
