@@ -1,0 +1,1 @@
+# kronika-wiremock-docker
