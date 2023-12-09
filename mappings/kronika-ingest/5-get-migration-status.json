@@ -1,0 +1,14 @@
+{
+  "request": {
+    "method": "GET",
+    "urlPathTemplate": "/ingest/migrations/{migrationId}"
+  },
+  "response": {
+    "status": 200,
+    "bodyFileName": "migrations/migration-status-response.json",
+    "transformers": ["response-template"],
+    "headers": {
+      "Content-Type": "application/json"
+    }
+  }
+}
