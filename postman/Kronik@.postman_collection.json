@@ -4,7 +4,7 @@
 		"name": "Kronik@",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "4407045",
-		"_collection_link": "https://speeding-comet-116608.postman.co/workspace/3947acf5-b0e8-405b-b1da-ac852427ec6d/collection/4407045-03f4588b-d406-4cd7-9c70-705bfd95d2ce?action=share&source=collection_link&creator=4407045"
+		"_collection_link": "https://speeding-comet-116608.postman.co/workspace/BIOBANK~3947acf5-b0e8-405b-b1da-ac852427ec6d/collection/4407045-03f4588b-d406-4cd7-9c70-705bfd95d2ce?action=share&source=collection_link&creator=4407045"
 	},
 	"item": [
 		{
@@ -199,6 +199,42 @@
 						"migrations",
 						":migrationId",
 						"start"
+					],
+					"variable": [
+						{
+							"key": "migrationId",
+							"value": "{{kronika.migrationId}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[5] Get migration status",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{kronika.host}}/ingest/migrations/:migrationId",
+					"host": [
+						"{{kronika.host}}"
+					],
+					"path": [
+						"ingest",
+						"migrations",
+						":migrationId"
 					],
 					"variable": [
 						{
