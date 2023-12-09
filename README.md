@@ -3,4 +3,6 @@ A docker container containing WireMock stub server for Kronik@ Ingest API orches
 
 run `docker-compose up --build -d` to start
 
-Default port: 8081
+Default ports:
+* HTTP: 8081
+* HTTPS: 9443

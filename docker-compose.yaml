@@ -2,12 +2,15 @@ version: '2'
 services:
   wiremock:
     image: wiremock/wiremock
+    entrypoint: ["/docker-entrypoint.sh", "--https-port=9443", "--https-keystore=/home/certs/server.jks", "--keystore-password=password", "--https-require-client-cert=true", "--https-truststore=/home/certs/client.jks", "—-truststore-password=password"]
     container_name: kronika-wiremock
     ports:
       - "8081:8080"
+      - "9443:9443"
     volumes:
       - ./files:/home/wiremock/__files
       - ./mappings:/home/wiremock/mappings
+      - ./certs:/home/certs
 volumes:
   files:
   mappings:
